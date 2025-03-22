@@ -1,7 +1,7 @@
 #include <math.h>
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #define deltaX 0.1
 #define deltaT 0.1
@@ -211,13 +211,13 @@ int main() {
     size = geramatriz(dominio, matA, vetb, vetb_ext, m, n);
 
     // solução iterativa - ciclos
-    timea = (float)clock() / CLOCKS_PER_SEC;
+    timea = omp_get_wtime();
     for (j = 0; j < ciclos; j++) {
         soma_vetor(vetb, vetb_ext, vetb, size);
         GC(matA, offset, vetb, vetx, size);
         copia_vetor(vetb, vetx, size);
     }
-    timeb = (float)clock() / CLOCKS_PER_SEC;
+    timeb = omp_get_wtime();
 
     // saida
     for (i = 0; i < size; i++) {
