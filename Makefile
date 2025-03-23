@@ -1,19 +1,13 @@
-.PHONY: serial
-serial:
-	gcc -Wall -Werror -g serial.c -o build/serial -lm -fopenmp
+.PHONY: serial threads gpu gen-input
 
-.PHONY: serial-opt
-serial-opt:
+serial:
 	gcc -O3 -Wall -Werror serial.c -o build/serial -lm -fopenmp
 
-.PHONY: threads
 threads:
-	gcc -Wall -Werror -g openmp-threads.c -o build/threads -lm -fopenmp
+	gcc -O3 -Wall -Werror threads.c -o build/threads -lm -fopenmp
 
-.PHONY: threads-opt
-threads-opt:
-	gcc -O3 -Wall -Werror openmp-threads.c -o build/threads -lm -fopenmp
+gpu:
+	# gcc -O3 -Wall -Werror gpu.c -o build/gpu -lm -fopenmp
 
-.PHONY: gen-input
 gen-input:
 	gcc -O3 -Wall gen-input.c -o build/gen-input -lm -fopenmp

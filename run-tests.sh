@@ -2,8 +2,9 @@
 
 echo "building.."
 mkdir -p build
-echo " + $(make serial-opt)"
-echo " + $(make naive-opt)"
+echo " + $(make serial)"
+echo " + $(make threads)"
+echo " + $(make gpu)"
 
 echo "creating inputs.."
 mkdir -p inputs
@@ -21,9 +22,12 @@ done
 
 repeat=5
 
+echo "---------------"
+
 echo "running serial.."
 for size in ${sizes[@]}; do
     input=inputs/$size.dat
+    ./build/serial < $input >/dev/null 2>&1
     for ((i=0; i<$repeat; i++)); do
         ./build/serial < $input 2>/dev/null
     done
@@ -33,6 +37,7 @@ echo "---------------"
 echo "running openmp.."
 for size in ${sizes[@]}; do
     input=inputs/$size.dat
+    ./build/threads < $input >/dev/null 2>&1
     for ((i=0; i<$repeat; i++)); do
         ./build/threads < $input 2>/dev/null
     done
@@ -42,6 +47,7 @@ echo "---------------"
 # echo "running openacc.."
 # for size in ${sizes[@]}; do
 #     input=inputs/$size.dat
+#     ./build/gpu < $input >/dev/null 2>&1
 #     for ((i=0; i<$repeat; i++)); do
 #         ./build/gpu < $input 2>/dev/null
 #     done
