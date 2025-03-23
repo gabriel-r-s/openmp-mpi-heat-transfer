@@ -14,6 +14,7 @@ float timea, timeb;
 void copia_vetor(float *dest, float *orig, int tdom) {
     int i;
 
+#pragma omp parallel for
     for (i = 0; i < tdom; i++) {
         dest[i] = orig[i];
     }
@@ -24,6 +25,7 @@ void mult_mat_vet(float **matriz, int *offset, float *vetor, float *result,
     float tmp;
     int i, j;
 
+#pragma omp parallel for
     for (i = 0; i < tdom; i++) {
         tmp = 0.00;
         for (j = 0; j < 5; j++) {
@@ -38,6 +40,7 @@ float produto_escalar(float *vetor1, float *vetor2, int tdom) {
     int i;
     float resposta = 0;
 
+#pragma omp parallel for reduction(+ : resposta)
     for (i = 0; i < tdom; i++)
         resposta += vetor1[i] * vetor2[i];
 
@@ -47,6 +50,7 @@ float produto_escalar(float *vetor1, float *vetor2, int tdom) {
 void escalar_vetor(float *vetor, float escalar, float *resposta, int tdom) {
     int i;
 
+#pragma omp parallel for
     for (i = 0; i < tdom; i++)
         resposta[i] = escalar * vetor[i];
 }
@@ -54,6 +58,7 @@ void escalar_vetor(float *vetor, float escalar, float *resposta, int tdom) {
 void soma_vetor(float *vetor1, float *vetor2, float *resposta, int tdom) {
     int i;
 
+#pragma omp parallel for
     for (i = 0; i < tdom; i++)
         resposta[i] = vetor1[i] + vetor2[i];
 }
@@ -61,6 +66,7 @@ void soma_vetor(float *vetor1, float *vetor2, float *resposta, int tdom) {
 void sub_vetor(float *vetor1, float *vetor2, float *resposta, int tdom) {
     int i;
 
+#pragma omp parallel for
     for (i = 0; i < tdom; i++)
         resposta[i] = vetor1[i] - vetor2[i];
 }
