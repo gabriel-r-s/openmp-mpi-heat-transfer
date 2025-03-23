@@ -225,7 +225,7 @@ int main() {
     }
     fprintf(stderr, "\n ");
 
-    printf("tempo: %f \n ", timeb - timea);
+    printf("%04d %010.6f\n", m, timeb - timea);
 
     return (0);
 }
