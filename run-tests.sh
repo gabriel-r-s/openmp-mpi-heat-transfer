@@ -5,6 +5,7 @@ mkdir -p build
 echo " + $(make serial)"
 echo " + $(make threads)"
 echo " + $(make gpu)"
+echo " + $(make gen-input)"
 
 echo "creating inputs.."
 mkdir -p inputs
