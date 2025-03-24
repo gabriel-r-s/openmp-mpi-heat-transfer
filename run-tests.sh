@@ -55,6 +55,6 @@ for size in ${sizes[@]}; do
     input=inputs/$size.dat
     ./build/gpu < $input >/dev/null 2>&1
     for ((i=0; i<$repeat; i++)); do
-        ./build/gpu < $input 2>/dev/null
+        ./build/gpu < $input 2>/dev/null | tee -a results/gpu.csv
     done
 done
