@@ -2,6 +2,7 @@
 
 echo "building.."
 mkdir -p build
+echo " + $(make gen-input)"
 echo " + $(make serial)"
 echo " + $(make threads)"
 echo " + $(make gpu)"
@@ -44,11 +45,11 @@ for size in ${sizes[@]}; do
 done
 echo "---------------"
 
-# echo "running openacc.."
-# for size in ${sizes[@]}; do
-#     input=inputs/$size.dat
-#     ./build/gpu < $input >/dev/null 2>&1
-#     for ((i=0; i<$repeat; i++)); do
-#         ./build/gpu < $input 2>/dev/null
-#     done
-# done
+echo "running openacc.."
+for size in ${sizes[@]}; do
+    input=inputs/$size.dat
+    ./build/gpu < $input >/dev/null 2>&1
+    for ((i=0; i<$repeat; i++)); do
+        ./build/gpu < $input 2>/dev/null
+    done
+done
