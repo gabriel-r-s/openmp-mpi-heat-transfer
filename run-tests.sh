@@ -50,7 +50,6 @@ for size in ${sizes[@]}; do
 done
 echo "---------------"
 
-<<<<<<< HEAD
 echo "running openacc.."
 for size in ${sizes[@]}; do
     input=inputs/$size.dat
@@ -59,17 +58,3 @@ for size in ${sizes[@]}; do
         ./build/gpu < $input 2>/dev/null
     done
 done
-=======
-# remover apos implementar openacc
-cp results/threads.csv results/gpu.csv
-
-# echo "running openacc.."
-# printf "" > results/gpu.csv
-# for size in ${sizes[@]}; do
-#     input=inputs/$size.dat
-#     ./build/gpu < $input >/dev/null 2>&1
-#     for ((i=0; i<$repeat; i++)); do
-#         ./build/gpu < $input 2>/dev/null | tee -a results/gpu.csv
-#     done
-# done
->>>>>>> 7387d2a02a2897291ba580b535bec3df8a4e5405
