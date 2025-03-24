@@ -3,7 +3,7 @@
 #define borda 10.0
 #define interior 1.0
 
-void main(int argc, char **argv) {
+int main(int argc, char **argv) {
     unsigned int m, n, i, j, t;
     float b = borda;
     float w = interior;
