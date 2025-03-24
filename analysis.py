@@ -9,7 +9,7 @@ threads = pd.read_csv("results/threads.csv", header=None, names=["size", "time"]
 gpu = pd.read_csv("results/gpu.csv", header=None, names=["size", "time"], delimiter=" ")
 
 # somente para testes:
-gpu["time"] /= 2.0
+# gpu["time"] /= 2.0
 
 FIG_DPI = 300.0
 FIG_SIZE = (10, 4)
@@ -30,6 +30,7 @@ def plot_time():
     plt.xlabel("Largura")
     plt.ylabel("Tempo de Execução")
 
+    plt.tight_layout()
     plt.savefig("results/time.png", dpi=FIG_DPI)
     # plt.show()
 
@@ -44,6 +45,7 @@ def plot_time_zoomed():
     plt.xlabel("Largura")
     plt.ylabel("Tempo de Execução")
 
+    plt.tight_layout()
     plt.savefig("results/time_zoomed.png", dpi=FIG_DPI)
     # plt.show()
 
@@ -61,30 +63,31 @@ def plot_speedup():
     plt.xticks(index, fontsize=8, rotation=45)
     plt.xlabel("Largura")
     plt.ylabel("Speedup")
-    plt.yscale("log")
+    # plt.yscale("log")
 
+    plt.tight_layout()
     plt.savefig("results/speedup.png", dpi=FIG_DPI)
     # plt.show()
 
 
 def plot_efficiency():
-    speedup_threads = serial.values / threads.values
-    speedup_gpu = serial.values / gpu.values
+    data_threads = pd.read_csv("results/efficiency.csv", header=None, names=["threads", "size", "time"], delimiter=" ")
 
+    efficiency_threads = data_threads.groupby("threads")["time"].mean()
+    index = efficiency_threads.index
+    efficiency_threads = (serial[300.0] / efficiency_threads.values) / index
     efficiency_serial = np.ones(len(index))
-    efficiency_threads = speedup_threads / 8.0
-    efficiency_gpu = speedup_threads / 128.0
 
     plt.figure(figsize=FIG_SIZE)
     plt.plot(index, efficiency_serial, label="Serial", color="red")
     plt.plot(index, efficiency_threads, label="Threads", color="Green", linestyle="--", marker="s")
-    plt.plot(index, efficiency_gpu, label="GPU", color="Blue", linestyle=":", marker="^")
-    plt.legend(loc="upper left")
+    plt.legend()
     plt.xticks(index, fontsize=8, rotation=45)
-    plt.xlabel("Largura")
+    plt.xlabel("Núm. Threads")
     plt.ylabel("Eficiência")
     plt.yscale("log")
 
+    plt.tight_layout()
     plt.savefig("results/efficiency.png", dpi=FIG_DPI)
     # plt.show()
 
